@@ -6,6 +6,10 @@ vim.opt.path = vim.bo.path .. "**"
 vim.opt.wildignore = vim.go.wildignore .. "**/node_modules/**"
 vim.opt.wildmenu = true
 
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
 require("packer").startup(function()
   use 'wbthomason/packer.nvim'
   use 'neovim/nvim-lspconfig'
@@ -18,11 +22,12 @@ require("packer").startup(function()
   use {"ray-x/lsp_signature.nvim"}
   use {"jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" }}
   use 'mfussenegger/nvim-dap'
-  use ({"folke/noice.nvim", event = "VimEnter", config = function()
-    require("noice").setup()
+  use({
+  "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  config = function()
+    require("lsp_lines").setup()
   end,
-    requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" }
-  })
+})
 end)
 
 local cmp = require("cmp")
