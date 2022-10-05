@@ -18,6 +18,11 @@ require("packer").startup(function()
   use {"ray-x/lsp_signature.nvim"}
   use {"jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" }}
   use 'mfussenegger/nvim-dap'
+  use ({"folke/noice.nvim", event = "VimEnter", config = function()
+    require("noice").setup()
+  end,
+    requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" }
+  })
 end)
 
 local cmp = require("cmp")
@@ -98,4 +103,4 @@ dap.configurations.typescript = {
   firefoxExecutable = '/usr/bin/firefox'
 }
 
---Plug 'w0rp/ale'
+
