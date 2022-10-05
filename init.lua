@@ -1,4 +1,5 @@
 vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.number = true
 vim.opt.relativenumber = true
