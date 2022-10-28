@@ -23,6 +23,7 @@ require("packer").startup(function()
   use {"ray-x/lsp_signature.nvim"}
   use {"jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" }}
   use 'mfussenegger/nvim-dap'
+  use 'jose-elias-alvarez/typescript.nvim'
   use({
   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
   config = function()
@@ -67,10 +68,6 @@ tabnine:setup({
 	show_prediction_strength = false;
 })
 
-require("lspconfig").tsserver.setup {
-  capabilities = capabilities
-}
-
 local status, treesitterConfigs = pcall(require, "nvim-treesitter.configs")
 treesitterConfigs.setup {
   ensure_installed = "all",
@@ -90,6 +87,18 @@ require("null-ls").setup({
   sources = {
     require("null-ls").builtins.diagnostics.eslint,
   }
+})
+
+require("typescript").setup({
+  disable_commands = false, -- prevent the plugin from creating Vim commands
+  debug = false, -- enable debug logging for commands
+  go_to_source_definition = {
+    fallback = true, -- fall back to standard LSP definition on failure
+  },
+  server = { -- pass options to lspconfig's setup method
+    on_attach = ...,
+    capabilities = capabilities
+  },
 })
 
 local dap = require('dap')
