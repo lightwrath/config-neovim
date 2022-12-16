@@ -11,6 +11,10 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
+vim.keymap.set("n", "<Space>b", function() require('dap').toggle_breakpoint() end)
+vim.keymap.set("n", "<Space>c", function() require('dap').continue() end)
+vim.keymap.set("n", "<Space>o", function() require('dap').repl.open() end)
+
 require("packer").startup(function()
   use 'wbthomason/packer.nvim'
   use 'neovim/nvim-lspconfig'
@@ -23,6 +27,7 @@ require("packer").startup(function()
   use {"ray-x/lsp_signature.nvim"}
   use {"jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" }}
   use 'mfussenegger/nvim-dap'
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use 'jose-elias-alvarez/typescript.nvim'
   use({
   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -118,4 +123,4 @@ dap.configurations.typescript = {
   firefoxExecutable = '/usr/bin/firefox'
 }
 
-
+require("dapui").setup()
