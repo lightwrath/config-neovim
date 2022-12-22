@@ -11,10 +11,6 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
-vim.keymap.set("n", "<Space>b", function() require('dap').toggle_breakpoint() end)
-vim.keymap.set("n", "<Space>c", function() require('dap').continue() end)
-vim.keymap.set("n", "<Space>o", function() require('dap').repl.open() end)
-
 require("packer").startup(function()
   use 'wbthomason/packer.nvim'
   use 'neovim/nvim-lspconfig'
@@ -24,11 +20,13 @@ require("packer").startup(function()
   use 'hrsh7th/vim-vsnip'
   use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  use 'mbbill/undotree'
   use {"ray-x/lsp_signature.nvim"}
   use {"jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" }}
   use 'mfussenegger/nvim-dap'
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use 'jose-elias-alvarez/typescript.nvim'
+  use 'nvim-telescope/telescope.nvim'
   use({
   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
   config = function()
@@ -36,6 +34,8 @@ require("packer").startup(function()
   end,
 })
 end)
+
+require("lua.remap")
 
 local cmp = require("cmp")
 cmp.setup({
@@ -73,18 +73,8 @@ tabnine:setup({
 	show_prediction_strength = false;
 })
 
-local status, treesitterConfigs = pcall(require, "nvim-treesitter.configs")
-treesitterConfigs.setup {
-  ensure_installed = "all",
-  sync_install = false,
-  highlight = {
-    enable = true,
-    addition_vim_regex_highlighting = false,
-  },
-  indent = {
-    enable = true,
-  }
-}
+require('lua.treesitter')
+
 
 require("lsp_signature").setup({})
 
