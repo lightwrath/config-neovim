@@ -24,8 +24,19 @@ require("packer").startup(function()
   use 'mbbill/undotree'
   use {"ray-x/lsp_signature.nvim"}
   use {"jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" }}
-  use 'mfussenegger/nvim-dap'
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use 'mfussenegger/nvim-dap' -- unused
+  use { "mxsdev/nvim-dap-vscode-js", requires = {"mfussenegger/nvim-dap"} } -- unused
+  use {
+    "microsoft/vscode-js-debug", -- unused
+    opt = true,
+    run = "npm install --legacy-peer-deps && npm run compile" 
+  }
+  use {
+    "microsoft/vscode-node-debug2", -- unused
+    opt = true,
+    run = "npm install && NODE_OPTIONS=--no-experimental-fetch npm run build"
+  }
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} } -- unused
   use 'nvim-telescope/telescope.nvim'
   use({
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -56,9 +67,10 @@ require("packer").startup(function()
   }
 end)
 
-require("remap")
-require('lsp')
-require('treesitter')
+require('remap-plugin')
+require('dap-plugin')
+require('lsp-plugin')
+require('treesitter-plugin')
 
 require("null-ls").setup({
   sources = {
@@ -66,21 +78,3 @@ require("null-ls").setup({
   }
 })
 
-local dap = require('dap')
-dap.adapters.firefox = {
-  type = 'executable',
-  command = 'node',
-  args = {os.getenv('HOME') .. '~/.config/nvim/vscode-firefox-debug/dist/adapter.bundle.js'},
-}
-
-dap.configurations.typescript = {
-  name = 'Debug with Firefox',
-  type = 'firefox',
-  request = 'launch',
-  reAttach = true,
-  url = 'http://localhost:3000',
-  webRoot = '${workspaceFolder}',
-  firefoxExecutable = '/usr/bin/firefox'
-}
-
-require("dapui").setup()

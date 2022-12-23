@@ -160,6 +160,11 @@ _G.packer_plugins = {
     path = "/home/lightwrath/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
     url = "https://github.com/rcarriga/nvim-dap-ui"
   },
+  ["nvim-dap-vscode-js"] = {
+    loaded = true,
+    path = "/home/lightwrath/.local/share/nvim/site/pack/packer/start/nvim-dap-vscode-js",
+    url = "https://github.com/mxsdev/nvim-dap-vscode-js"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/lightwrath/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -189,6 +194,18 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/lightwrath/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
+  },
+  ["vscode-js-debug"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lightwrath/.local/share/nvim/site/pack/packer/opt/vscode-js-debug",
+    url = "https://github.com/microsoft/vscode-js-debug"
+  },
+  ["vscode-node-debug2"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/lightwrath/.local/share/nvim/site/pack/packer/opt/vscode-node-debug2",
+    url = "https://github.com/microsoft/vscode-node-debug2"
   }
 }
 
